@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f0e4">
+  <meta name="description" content="Send a digital asset on an illustrated journey of visible traces and unknown spaces.">
+  <title>Once It Leaves — An Asset Journey</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" type="module"></script>
+</head>
+<body>
+  <div class="checker" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="header"><a class="brand" href="#top">Once It Leaves<span aria-hidden="true">✦</span></a><div class="header-actions"><span class="mode-label">PUBLIC TRACE SEARCH</span><button id="resetButton" class="text-button" type="button">My travelers</button></div></header>
+    <p id="localModeNotice" class="local-mode-notice" hidden>Local file mode: uploading and the journey work here. For Content Credentials and more reliable saved files, open this project with <code>pnpm dev</code>.</p>
+    <main id="top">
+      <div id="progress" class="progress" aria-label="Journey progress"><span id="stepUpload" class="active">Meet</span><i></i><span id="stepPassport">Prepare</span><i></i><span id="stepMap">Explore</span></div>
+
+      <section id="libraryScreen" class="screen library-screen" aria-labelledby="libraryTitle" hidden>
+        <div class="library-intro"><div><h1 id="libraryTitle" tabindex="-1">Your little travelers</h1><p>Each asset carries its own passport, map, and diary of evidence.</p></div><button id="newTravelerButton" class="primary-button" type="button">Welcome a new asset <span aria-hidden="true">→</span></button></div>
+        <div id="libraryGrid" class="library-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="uploadScreen" class="screen upload-screen" aria-labelledby="uploadTitle">
+        <div class="upload-stage">
+          <div class="upload-copy"><span class="chapter-label">A NEW TRAVELER</span><h1 id="uploadTitle">Meet your asset.</h1><p>Choose a file and watch it become a little traveler.</p>
+            <div id="dropZone" class="drop-zone"><input id="assetInput" type="file" accept=".pdf,.doc,.docx,image/*,audio/*,video/*"><button id="chooseFileButton" class="primary-button" type="button">Choose a file <span aria-hidden="true">↗</span></button><span>or drop it here · PDF, Word, image, audio, video</span></div>
+            <p id="uploadError" class="form-message" role="alert" hidden></p>
+          </div>
+          <div class="character-stage" aria-label="Asset character preview"><div class="character-platform" aria-hidden="true"></div><div id="waitingCharacters" class="waiting-characters" aria-hidden="true"><div class="asset-sprite kind-image"></div><div class="asset-sprite kind-pdf"></div><div class="asset-sprite kind-audio"></div></div><div id="uploadAvatar" class="avatar-shell" hidden><div id="uploadSprite" class="asset-sprite kind-pdf"></div></div><div id="uploadBubble" class="character-bubble">Who will travel today?</div></div>
+        </div>
+        <div id="uploadedAsset" class="found-file" hidden><div id="assetPreview" class="small-preview"></div><div class="found-file-info"><strong id="uploadedName"></strong><span id="uploadedMeta"></span><small id="storageStatus"></small><button id="replaceFileButton" class="text-button" type="button">Choose another file</button></div><button id="continueButton" class="primary-button" type="button">Pack a passport <span aria-hidden="true">→</span></button></div>
+        <div id="mediaPreview" class="media-preview" hidden></div>
+        <section id="credentialCheck" class="credential-check" hidden aria-live="polite"><div><span class="credential-label">CONTENT CREDENTIALS · LOCAL CHECK</span><strong id="uploadCredentialStatus">Checking…</strong><p id="uploadCredentialDetail"></p></div><a id="adobeApplyUploadLink" href="https://contentauthenticity.adobe.com/" target="_blank" rel="noopener noreferrer">Apply with Adobe ↗</a></section>
+      </section>
+
+      <section id="passportScreen" class="screen passport-screen" aria-labelledby="passportTitle" hidden>
+        <div class="section-title"><div><span class="chapter-label">BEFORE DEPARTURE</span><h1 id="passportTitle" tabindex="-1">Pack a passport.</h1></div><button id="backToUploadButton" class="text-button" type="button">← Back to asset</button></div>
+        <div class="passport-layout"><div class="passport-book"><div class="passport-page character-page"><div class="book-heading">DIGITAL PASSPORT <span aria-hidden="true">✦</span></div><div class="passport-portrait"><div id="passportAvatar" class="avatar-shell"><div id="passportSprite" class="asset-sprite kind-pdf"></div></div></div><strong id="passportFileName"></strong><small id="passportFileType"></small><div class="passport-mark">HANDLE WITH CARE</div></div><div class="passport-page details-page"><div class="book-heading">TRAVEL INTENTIONS <span id="passportProgress">0 / 4</span></div><div class="passport-lines"><div><span>CREATOR</span><b id="passportCreatorPreview">—</b></div><div><span>CREDIT</span><b id="passportCreditPreview">—</b></div><div><span>AI REFERENCE</span><b id="passportAiPreview">—</b></div><div><span>COMMERCIAL USE</span><b id="passportCommercialPreview">—</b></div></div><div class="passport-stickers" aria-label="Packed passport choices"><span id="stickerCreator">CREATOR</span><span id="stickerCredit">CREDIT</span><span id="stickerAi">AI</span><span id="stickerCommercial">USE</span></div></div></div>
+          <div id="passportPrompt" class="packing-panel"><div class="packing-top"><span id="packingStep">PACKING 1 OF 4</span><span aria-hidden="true">✧</span></div><h2 id="packingQuestion" tabindex="-1">Who made this asset?</h2><p id="packingHint">A name or alias is enough.</p><div id="creatorPrompt"><label for="creator">Creator name or alias</label><input id="creator" maxlength="60" autocomplete="off" placeholder="Name or alias"><button id="creatorNextButton" class="primary-button" type="button">Add to passport <span aria-hidden="true">→</span></button></div><div id="passportChoices" class="packing-choices" hidden></div><div id="readyPrompt" hidden><p>Everything is packed. Your traveler is ready for the map.</p><button id="releaseButton" class="primary-button" type="button">Send them off <span aria-hidden="true">↗</span></button></div><button id="previousPackingButton" class="text-button" type="button" hidden>← Previous choice</button><p id="packingError" class="form-message" role="alert" hidden></p></div>
+        </div>
+        <div id="passportSigning" class="passport-signing"><div><strong>Ready to sign your image?</strong><p>Adobe Content Authenticity can apply credentials to a JPG or PNG. Download the signed image, then bring it back here; its passport choices stay in this browser and are not automatically written into Adobe's credential.</p></div><a href="https://contentauthenticity.adobe.com/" target="_blank" rel="noopener noreferrer">Open Adobe Apply ↗</a><label class="signed-replace">Use signed JPG/PNG <input id="signedFileInput" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png"></label><p id="signedFileMessage" class="form-message" role="status" hidden></p></div>
+      </section>
+
+      <section id="mapScreen" class="screen map-screen" aria-labelledby="mapTitle" hidden>
+        <div class="section-title map-title"><div><span class="chapter-label">VISIBLE TRACES</span><h1 id="mapTitle" tabindex="-1">Where has it been seen?</h1><p>Search a real public collection for an exact copy, then review any traces you find.</p></div><div class="map-nameplate"><span>ASSET</span><strong id="mapAssetName"></strong></div></div>
+        <div class="identity-band"><div><span>LOCAL FILE FINGERPRINT · SHA-256</span><strong id="hashValue">Calculating…</strong><small id="hashStatus">This identifies the exact bytes of the file you selected.</small></div><button id="copyHashButton" class="text-button" type="button">Copy hash</button><div class="credential-status"><span>CONTENT CREDENTIALS</span><strong id="credentialStatus">Checking…</strong><small id="credentialDetail"></small><a href="https://inspect.cr" target="_blank" rel="noopener noreferrer">Open Adobe Inspect ↗</a></div></div>
+        <section class="discovery-desk" aria-labelledby="discoveryTitle"><div><span class="chapter-label">LOOK FOR YOUR TRAVELER</span><h2 id="discoveryTitle">Search for a real trace</h2><p>Check Wikimedia Commons for a matching file. This searches one public collection, not the whole web. Your file stays here; only its SHA-1 fingerprint is sent when you press Search.</p><button id="searchCommonsButton" class="primary-button" type="button" disabled>Search Wikimedia Commons <span aria-hidden="true">⌕</span></button><p id="commonsSearchStatus" class="discovery-status" role="status" aria-live="polite">Preparing the file fingerprint…</p></div><div class="wider-search"><h3>Look beyond Commons</h3><p>Open a web search using this asset's name. Review results before adding a sighting; a matching name alone is not proof.</p><a id="webSearchLink" class="search-link" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">Search public web ↗</a><small>Search engines may not index downloads, private sharing, or altered copies.</small></div></section>
+        <div class="map-scroller"><div id="mapBoard" class="map-board evidence-map" aria-label="Illustrated map of recorded sightings"><div id="mapTraveler" class="map-traveler" aria-hidden="true"><div id="mapSprite" class="asset-sprite kind-pdf"></div></div>
+          <button id="studentStop" class="island-stop student" type="button"><span class="island-flag">▤</span><strong>Student project</strong><small id="studentStatus">No sighting</small></button>
+          <button id="aiStop" class="island-stop ai" type="button"><span class="island-flag">✳</span><strong>AI studio</strong><small id="aiStatus">No sighting</small></button>
+          <button id="commercialStop" class="island-stop commercial" type="button"><span class="island-flag">▣</span><strong>Marketplace</strong><small id="commercialStatus">No sighting</small></button>
+          <div class="island-stop unknown" aria-label="Unknown territory: no evidence is available here"><span class="island-flag">?</span><strong>Unknown territory</strong><small>Unobserved</small></div>
+          <button id="publicStop" class="island-stop rediscover" type="button"><span class="island-flag">✧</span><strong>Public website</strong><small id="publicStatus">No sighting</small></button>
+          <div id="eventPanel" class="event-panel" aria-live="polite" hidden></div><div id="mapHint" class="map-hint">Add evidence below to place a pin.</div>
+        </div></div>
+        <div class="map-key"><span><i class="key-visible"></i> Reported sighting</span><span><i class="key-match"></i> Exact copy</span><span><i class="key-unknown"></i> Unknown route</span><span class="mobile-map-tip">Swipe the map to explore →</span></div>
+        <div class="evidence-layout"><section class="evidence-add" aria-labelledby="evidenceTitle"><span class="chapter-label">FIELD NOTES</span><h2 id="evidenceTitle">Add a public sighting</h2><p>Paste a URL you found. You can also compare a copy saved from that page with the original asset.</p><form id="evidenceForm"><label for="sourceUrl">Public URL</label><input id="sourceUrl" name="sourceUrl" type="url" required placeholder="https://example.com/page"><label for="sightingCategory">Place</label><select id="sightingCategory" name="sightingCategory"><option value="student">Student project</option><option value="ai">AI studio</option><option value="commercial">Marketplace</option><option value="public">Other public website</option></select><label for="comparisonFile">Downloaded copy to compare <span>(optional)</span></label><input id="comparisonFile" name="comparisonFile" type="file"><p class="field-help">Compared only in your browser. A matching hash confirms identical file bytes, not how it traveled.</p><label for="observationNote">What did you see? <span>(optional)</span></label><textarea id="observationNote" name="observationNote" maxlength="280" rows="3" placeholder="e.g. shown in a portfolio with creator credit"></textarea><button id="submitEvidenceButton" class="primary-button" type="submit">Add sighting to map <span aria-hidden="true">→</span></button><p id="evidenceMessage" class="form-message" role="status" hidden></p></form></section>
+          <section id="journalSection" class="journal" aria-labelledby="journalTitle"><div class="journal-heading"><h2 id="journalTitle">Travel diary</h2><button id="exportEvidenceButton" class="text-button" type="button" disabled>Export JSON</button></div><ol id="journalList" class="journal-list"><li class="journal-empty">No sightings yet. The map does not invent a route.</li></ol></section></div>
+      </section>
+      <p class="truth-line"><strong>Search boundary:</strong> Commons search sends only a file fingerprint after you press Search. Your file stays in this browser. Other links are user-reported; no unseen route is inferred.</p>
+    </main>
+    <footer><span>ONCE IT LEAVES</span><span>Care for assets · circulation · creators & viewers</span></footer>
+  </div><div class="checker bottom-checker" aria-hidden="true"></div>
+  <script>
+    if (location.protocol === "file:") {
+      document.getElementById("localModeNotice").hidden = false;
+      const fallback = document.createElement("script");
+      fallback.src = "script.js";
+      fallback.async = false;
+      document.body.append(fallback);
+    }
+  </script>
+</body>
+</html>

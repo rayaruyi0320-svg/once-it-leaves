@@ -1,0 +1,17 @@
+{
+  "name": "once-it-leaves",
+  "private": true,
+  "version": "0.7.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@contentauth/c2pa-web": "0.15.5"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
